@@ -1,7 +1,7 @@
 {
-  "name": "api-template",
+  "name": "message",
   "version": "0.0.0",
-  "description": "XXX",
+  "description": "les messages des utilisateurs",
   "main": "dist/index.js",
   "repository": "https://github.com/BlueForestTrees/api-XXX.git",
   "author": "slim <smedini@gmail.com>",
@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "build": "rimraf dist && babel src --out-dir dist/js && copyfiles etc/** dist",
-    "dev": "node --version && cross-env DEBUG=api:* PORT=XXX REST_PATH=src/rest nodemon src/index.js --exec babel-node",
-    "test": "cross-env DEBUG=api:*,test:* NODE_ENV=test PORT=XXX REST_PATH=src/rest mocha --recursive --require babel-register --exit \"test/**/*.js\""
+    "dev": "node --version && cross-env DEBUG=api:* PORT=8087 REST_PATH=src/rest nodemon src/index.js --exec babel-node",
+    "test": "cross-env DEBUG=api:*,test:* NODE_ENV=test PORT=9007 REST_PATH=src/rest mocha --recursive --require babel-register --exit \"test/**/*.js\""
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -36,8 +36,10 @@
     "express-blueforest": "1.0.15",
     "express-validator": "5.3.0",
     "items-service": "1.0.13",
+    "jsonwebtoken": "^8.3.0",
     "lodash": "4.17.10",
-    "mongo-registry": "1.0.13"
+    "mongo-registry": "1.0.13",
+    "sha1": "^1.1.1"
   },
   "babel": {
     "presets": [

@@ -1,4 +1,4 @@
-const debug = require('debug')('api:XXX')
+const debug = require('debug')('api:message')
 import {version} from './../package.json'
 
 const ENV = {
@@ -11,7 +11,7 @@ const ENV = {
     DB_PORT: process.env.DB_PORT || 27017,
     DB_USER: process.env.DB_USER || "doudou",
     DB_PWD: process.env.DB_PWD || "masta",
-    DB_COLLECTION: process.env.DB_COLLECTION || "XXX",
+    DB_COLLECTION: process.env.DB_COLLECTION || "MessageCollection",
     
     NODE_ENV: process.env.NODE_ENV || null,
     VERSION: version,

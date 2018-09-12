@@ -1,3 +1,5 @@
+import env from "./env"
+
 export const cols = {
-    XXX:"XXX"
+    MESSAGES: env.DB_COLLECTION
 }

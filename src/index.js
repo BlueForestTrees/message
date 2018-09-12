@@ -12,4 +12,4 @@ const errorMapper = err => {
 
 export default dbInit(ENV, registry)
     .then(startExpress(ENV, errorMapper))
-    .catch(e => console.error("BOOT ERROR\n",e))
+    .catch(e => console.error("BOOT ERROR\n", e))
