@@ -1,6 +1,6 @@
 import {col} from "mongo-registry"
 import {Router, run} from "express-blueforest"
-import {mongoId, removeUndefineds, gt, setCreationDate, setModifDate, userIdIn, anyOf} from "../validations"
+import {mongoId, removeUndefineds, gt, setCreationDate, setModifDate, userIdIn, anyOf, userShortnameIn} from "../validations"
 import {cols} from "../collections"
 import {body, param, query} from 'express-validator/check'
 
@@ -12,9 +12,10 @@ const messages = col(cols.MESSAGES)
 router.post('/api/message',
     mongoId(body("_id")),
     mongoId(body("topicId").optional()),
-    body("message").exists(),
     body("type").exists(),
+    body("message").exists(),
     run(userIdIn("oid")),
+    run(userShortnameIn("shortname")),
     run(setCreationDate),
     run(m => messages.insertOne(m)),
     run(() => null)
@@ -33,11 +34,11 @@ router.get('/api/message',
     mongoId(query("_id").optional()),
     mongoId(query("tid").optional()),
     mongoId(query("oid").optional()),
-    query("type").optional().isString().isLength({min: 1, max: 8}),
+    query("type").optional().isString().isLength({min: 1, max: 30}),
     gt(mongoId(query("aid").optional())),
-    removeUndefineds,
+    run(removeUndefineds, "REMOVE_UNDEFINEDS"),
     run(q => messages.find(q)
-        .sort({_id: -1})
+        .sort({_id: 1})
         .limit(10)
         .toArray()
     )

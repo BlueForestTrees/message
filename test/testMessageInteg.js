@@ -32,7 +32,8 @@ describe('Messages', function () {
                         topicId,
                         message: "salut bonhomme!!",
                         type: "PLAN",
-                        oid: god._id
+                        oid: god._id,
+                        shortname: god.shortname
                     }
                 }
             }
@@ -98,7 +99,8 @@ describe('Messages', function () {
                     _id, creationDate, topicId,
                     message: "salut bonhomme!!",
                     type: "PLAN",
-                    oid: god._id
+                    oid: god._id,
+                    shortname: god.shortname
                 }
             }
         },
@@ -114,6 +116,30 @@ describe('Messages', function () {
                 {path: "$[0].message", value: 'salut bonhomme!!'},
                 {path: "$[0].type", value: 'PLAN'},
                 {path: "$[0].oid", value: god._id},
+                {path: "$[0].shortname", value: god.shortname},
+            ]
+        }
+    }))
+
+    it('get message vide', withTest({
+        db: {
+            preChange: {
+                colname: cols.MESSAGES,
+                doc: {
+                    _id, creationDate, topicId,
+                    message: "salut bonhomme!!",
+                    type: "PLAN",
+                    oid: god._id
+                }
+            }
+        },
+        req: {
+            url: `/api/message?type=FAUX_TYPE`,
+            method: "GET",
+        },
+        res: {
+            bodypath: [
+                {path: "$.length", value: 0}
             ]
         }
     }))

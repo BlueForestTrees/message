@@ -13,8 +13,9 @@ const getRandomColor = () => {
 }
 
 export const god = {
-    _id:createObjectId(),
+    _id: createObjectId(),
     mail: "god@test.fr",
+    shortname: "gotest",
     fullname: "God Test",
     wantSuscribeDate: new Date(),
     password: sha1("god_password"),
