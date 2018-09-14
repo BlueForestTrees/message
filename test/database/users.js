@@ -26,4 +26,10 @@ export const god = {
 
 export const authGod = {[X_ACCESS_TOKEN]: jwt.sign({user: god}, "miracle", {expiresIn: "1d"})}
 
+export const simple = {
+    _id: createObjectId(),
+    shortname: "simple Guy"
+}
+export const authSimple = {[X_ACCESS_TOKEN]: jwt.sign({user: simple}, "megasecret", {expiresIn: "1d"})}
+
 export const database = {}

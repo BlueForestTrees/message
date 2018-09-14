@@ -1,6 +1,6 @@
 import {col} from "mongo-registry"
 import {Router, run} from "express-blueforest"
-import {mongoId, removeUndefineds, gt, setCreationDate, setModifDate, userIdIn, anyOf, userShortnameIn} from "../validations"
+import {mongoId, removeUndefineds, gt, setCreationDate, setModifDate, userIdIn, anyOf, userShortnameIn, number} from "../validations"
 import {cols} from "../collections"
 import {body, param, query} from 'express-validator/check'
 
@@ -21,6 +21,30 @@ router.post('/api/message',
     run(() => null)
 )
 
+router.post('/api/message/reply',
+    mongoId(body("_id")),
+    mongoId(body("msgId")),
+    body("message").exists(),
+    run(userIdIn("oid")),
+    run(userShortnameIn("shortname")),
+    run(setCreationDate),
+    run(reply => messages.updateOne({_id: reply.msgId}, {$push: {replies: reply}})),
+    run(() => null)
+)
+
+router.put('/api/message/reply',
+    mongoId(body("_id")),
+    mongoId(body("msgId")),
+    body("message").exists(),
+    run(userIdIn("oid")),
+    run(setModifDate),
+    run(({_id, msgId, oid, message, modifDate}) => messages.updateOne(
+        {_id: msgId, "replies._id": _id, "replies.oid": oid},
+        {$set: {"replies.$.message": message, "replies.$.modifDate": modifDate}}
+    )),
+    run(() => null)
+)
+
 router.put('/api/message',
     mongoId(body("_id")),
     body("message").exists(),
@@ -30,6 +54,17 @@ router.put('/api/message',
     run(() => null)
 )
 
+router.get('/api/message/count',
+    mongoId(query("_id").optional()),
+    mongoId(query("tid").optional()),
+    mongoId(query("oid").optional()),
+    query("type").optional().isString().isLength({min: 1, max: 30}),
+    gt(mongoId(query("aid").optional())),
+    run(removeUndefineds, "REMOVE_UNDEFINEDS"),
+    run(q => messages.countDocuments(q, {projection: {replies: {$slice: [0, 3]}}}))
+)
+
+
 router.get('/api/message',
     mongoId(query("_id").optional()),
     mongoId(query("tid").optional()),
@@ -37,16 +72,38 @@ router.get('/api/message',
     query("type").optional().isString().isLength({min: 1, max: 30}),
     gt(mongoId(query("aid").optional())),
     run(removeUndefineds, "REMOVE_UNDEFINEDS"),
-    run(q => messages.find(q)
+    run(q => messages.find(q, {projection: {replies: {$slice: [0, 3]}}})
         .sort({_id: 1})
         .limit(10)
         .toArray()
     )
 )
 
+router.get('/api/message/reply/:_id/:skip/:limit',
+    mongoId(param("_id")),
+    number(param("skip")),
+    number(param("limit")),
+    run(({_id, skip, limit}) => messages.findOne({_id},
+        {
+            projection: {
+                replies: {$slice: [skip, limit]},
+                _id: 0, oid: 0, message: 0, creationDate: 0, modifDate: 0, shortname: 0, topicId: 0, type: 0
+            }
+        }
+    ))
+)
+
 router.delete('/api/message/:_id',
     mongoId(param("_id")),
     run(userIdIn("oid")),
     run(m => messages.deleteOne(m)),
+    run(() => null)
+)
+
+router.delete('/api/message/reply/:msgId/:_id',
+    mongoId(param("msgId")),
+    mongoId(param("_id")),
+    run(userIdIn("oid")),
+    run(({_id, msgId, oid}) => messages.updateOne({_id: msgId}, {$pull: {replies: {_id, oid}}})),
     run(() => null)
 )

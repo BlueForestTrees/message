@@ -7,6 +7,7 @@ export const mongoId = chain => chain.exists().withMessage("missing").isMongoId(
 export const gt = chain => chain.customSanitizer(o => {
     gt:o
 })
+export const number = chain => chain.isNumeric().withMessage("must be a valid number").toInt()
 
 export const userIdIn = field => (o, req) => {
     o[field] = object(jwt.decode(req.headers[X_ACCESS_TOKEN]).user._id)
