@@ -9,11 +9,11 @@ describe('Messages', function () {
 
     beforeEach(init(api, ENV, cols))
 
-    const _id = createObjectId()
-    const _id2 = createObjectId()
-    const _id3 = createObjectId()
-    const _id4 = createObjectId()
-    const _id5 = createObjectId()
+    const _id = object("fafa0001aaaaaaaaaaaaaaa1")
+    const _id2 = object("fafa0001aaaaaaaaaaaaaaa2")
+    const _id3 = object("fafa0001aaaaaaaaaaaaaaa3")
+    const _id4 = object("fafa0001aaaaaaaaaaaaaaa4")
+    const _id5 = object("fafa0001aaaaaaaaaaaaaaa5")
     const topicId = createObjectId()
     const creationDate = new Date()
 
@@ -80,6 +80,43 @@ describe('Messages', function () {
         },
     ]
 
+    const conv2 = [{
+        req: {
+            url: "/api/message",
+            method: "POST",
+            body: {
+                _id, topicId,
+                message: "salut bonhomme!!",
+                type: "PLAN"
+            },
+            headers: authGod
+        },
+    },
+        {
+            req: {
+                url: "/api/message",
+                method: "POST",
+                body: {
+                    _id: _id2, topicId,
+                    message: "salut bonhomme!!",
+                    type: "PLAN"
+                },
+                headers: authGod
+            },
+        },
+        {
+            req: {
+                url: "/api/message",
+                method: "POST",
+                body: {
+                    _id: _id3, topicId,
+                    message: "salut bonhomme!!",
+                    type: "PLANB"
+                },
+                headers: authGod
+            },
+        }]
+
     it('delete reply', withTest([
         ...conversation,
         {
@@ -143,42 +180,7 @@ describe('Messages', function () {
     ]))
 
     it('count', withTest([
-        {
-            req: {
-                url: "/api/message",
-                method: "POST",
-                body: {
-                    _id, topicId,
-                    message: "salut bonhomme!!",
-                    type: "PLAN"
-                },
-                headers: authGod
-            },
-        },
-        {
-            req: {
-                url: "/api/message",
-                method: "POST",
-                body: {
-                    _id: _id2, topicId,
-                    message: "salut bonhomme!!",
-                    type: "PLAN"
-                },
-                headers: authGod
-            },
-        },
-        {
-            req: {
-                url: "/api/message",
-                method: "POST",
-                body: {
-                    _id: _id3, topicId,
-                    message: "salut bonhomme!!",
-                    type: "PLANB"
-                },
-                headers: authGod
-            },
-        },
+        ...conv2,
         {
             req: {
                 url: `/api/message/count?type=PLAN`,
@@ -186,6 +188,23 @@ describe('Messages', function () {
             },
             res: {
                 body: 2
+            }
+        }
+    ]))
+
+    it('after id', withTest([
+        ...conv2,
+        {
+            req: {
+                url: `/api/message?aid=${_id}`,
+                method: "GET",
+            },
+            res: {
+                bodypath: [
+                    {path: "$.length", value: 2},
+                    {path: "$[0]._id", value: _id2.toString()},
+                    {path: "$[1]._id", value: _id3.toString()}
+                ]
             }
         }
     ]))

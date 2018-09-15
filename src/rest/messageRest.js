@@ -1,6 +1,6 @@
 import {col} from "mongo-registry"
 import {Router, run} from "express-blueforest"
-import {mongoId, removeUndefineds, gt, setCreationDate, setModifDate, userIdIn, anyOf, userShortnameIn, number} from "../validations"
+import {mongoId, removeUndefineds, gt, setCreationDate, setModifDate, userIdIn, anyOf, userShortnameIn, number, mountAidGt} from "../validations"
 import {cols} from "../collections"
 import {body, param, query} from 'express-validator/check'
 
@@ -69,8 +69,9 @@ router.get('/api/message',
     mongoId(query("_id").optional()),
     mongoId(query("tid").optional()),
     mongoId(query("oid").optional()),
+    mongoId(query("aid").optional()),
     query("type").optional().isString().isLength({min: 1, max: 30}),
-    gt(mongoId(query("aid").optional())),
+    run(mountAidGt, "AID_MOUNTED"),
     run(removeUndefineds, "REMOVE_UNDEFINEDS"),
     run(q => messages.find(q, {projection: {replies: {$slice: [0, 3]}}})
         .sort({_id: 1})

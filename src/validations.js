@@ -4,9 +4,7 @@ import jwt from "jsonwebtoken"
 import {X_ACCESS_TOKEN} from "./headers"
 
 export const mongoId = chain => chain.exists().withMessage("missing").isMongoId().withMessage("invalid mongo id").customSanitizer(objectNoEx)
-export const gt = chain => chain.customSanitizer(o => {
-    gt:o
-})
+export const gt = chain => chain.customSanitizer(o => ({$gt: o}))
 export const number = chain => chain.isNumeric().withMessage("must be a valid number").toInt()
 
 export const userIdIn = field => (o, req) => {
@@ -37,4 +35,11 @@ export const removeUndefineds = o => {
     return o
 }
 
+export const mountAidGt = o => {
+    if (o.aid) {
+        o._id = {$gt: o.aid}
+        delete o.aid
+    }
+    return o
+}
 
