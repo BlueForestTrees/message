@@ -2,7 +2,7 @@ const debug = require('debug')('api:message')
 import {version} from './../package.json'
 
 const ENV = {
-    PORT: process.env.PORT || 8080,
+    PORT: process.env.PORT || 80,
     
     REST_PATH: process.env.REST_PATH || "rest",
     
