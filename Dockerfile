@@ -1,4 +1,4 @@
-FROM node:latest AS api-builder
+FROM node:alpine AS api-builder
 
 RUN mkdir -p /build
 COPY package.json ./build/
