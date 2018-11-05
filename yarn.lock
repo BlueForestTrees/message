@@ -1331,7 +1331,7 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express-blueforest@1.0.18:
+express-blueforest@^1.0.18:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/express-blueforest/-/express-blueforest-1.0.18.tgz#3739228de13548c4d8d01510a66e58a8c6e4393a"
   dependencies:
