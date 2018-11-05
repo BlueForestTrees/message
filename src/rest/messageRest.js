@@ -61,7 +61,8 @@ router.get('/api/message/count',
     query("type").optional().isString().isLength({min: 1, max: 30}),
     gt(mongoId(query("aid").optional())),
     run(removeUndefineds, "REMOVE_UNDEFINEDS"),
-    run(q => messages.countDocuments(q, {projection: {replies: {$slice: [0, 3]}}}))
+    run(q => messages.countDocuments(q, {projection: {replies: {$slice: [0, 3]}}})),
+    run(res => res || [])
 )
 
 

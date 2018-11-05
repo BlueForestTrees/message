@@ -4,11 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: blueforest/message:1.0.4
+      tag: blueforest/message:1.0.5
       pushRemote: true
       registry: index.docker.io
-- name: deploy
-  steps:
-  - applyYamlConfig:
-      path: ./deployment.yaml
 timeout: 60
