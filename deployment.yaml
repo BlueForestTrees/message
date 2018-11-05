@@ -47,7 +47,7 @@ spec:
               key: mongodb-root-username
               name: mongo-mongodb
               optional: false
-        image: blueforest/message:1.0.3
+        image: blueforest/message:1.0.4
         imagePullPolicy: Always
         name: message
         resources: {}
