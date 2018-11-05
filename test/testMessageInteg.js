@@ -15,6 +15,7 @@ describe('Messages', function () {
     const _id4 = object("fafa0001aaaaaaaaaaaaaaa4")
     const _id5 = object("fafa0001aaaaaaaaaaaaaaa5")
     const topicId = createObjectId()
+    const topicId2 = createObjectId()
     const creationDate = new Date()
 
     const conversation = [
@@ -332,6 +333,54 @@ describe('Messages', function () {
                 {path: "$[0].type", value: 'PLAN'},
                 {path: "$[0].oid", value: god._id},
                 {path: "$[0].shortname", value: god.shortname},
+            ]
+        }
+    }))
+
+    it('get message with topic', withTest({
+        db: {
+            preChange: {
+                colname: cols.MESSAGES,
+                doc: {
+                    _id, creationDate, topicId,
+                    message: "salut bonhomme!!",
+                    type: "PLAN",
+                    oid: god._id,
+                    shortname: god.shortname
+                }
+            }
+        },
+        req: {
+            url: `/api/message?_id=${_id}&topicId=${topicId}`,
+            method: "GET",
+        },
+        res: {
+            bodypath: [
+                {path: "$.length", value: 1},
+            ]
+        }
+    }))
+
+    it('get message with bad topic', withTest({
+        db: {
+            preChange: {
+                colname: cols.MESSAGES,
+                doc: {
+                    _id, creationDate, topicId,
+                    message: "salut bonhomme!!",
+                    type: "PLAN",
+                    oid: god._id,
+                    shortname: god.shortname
+                }
+            }
+        },
+        req: {
+            url: `/api/message?_id=${_id}&topicId=${topicId2}`,
+            method: "GET",
+        },
+        res: {
+            bodypath: [
+                {path: "$.length", value: 0},
             ]
         }
     }))
