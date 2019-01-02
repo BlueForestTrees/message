@@ -1331,9 +1331,10 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express-blueforest@^1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/express-blueforest/-/express-blueforest-1.0.18.tgz#3739228de13548c4d8d01510a66e58a8c6e4393a"
+express-blueforest@1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/express-blueforest/-/express-blueforest-1.0.20.tgz#af6f248f67761b8636a9721eb56e148539574fe0"
+  integrity sha512-p/tMvpnOxIX+BJgyq603PapE9NGzIDeM6vvto4ZkHJILfwol6oFXgYJrutI6hhgVIn1mfQIjFoM1kxjyDDXVCg==
   dependencies:
     body-parser "1.18.3"
     express "4.16.3"
@@ -2066,9 +2067,10 @@ jsonpath@1.0.0:
     static-eval "2.0.0"
     underscore "1.7.0"
 
-jsonwebtoken@^8.3.0:
+jsonwebtoken@8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.3.0.tgz#056c90eee9a65ed6e6c72ddb0a1d325109aaf643"
+  integrity sha512-oge/hvlmeJCH+iIz1DwcO7vKPkNGJHhgkspk8OH3VKlw+mbi42WtD4ig1+VXRln765vxptAv+xT26Fd3cteqag==
   dependencies:
     jws "^3.1.5"
     lodash.includes "^4.3.0"
@@ -3058,9 +3060,10 @@ setprototypeof@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
 
-sha1@^1.1.1:
+sha1@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/sha1/-/sha1-1.1.1.tgz#addaa7a93168f393f19eb2b15091618e2700f848"
+  integrity sha1-rdqnqTFo85PxnrKxUJFhjicA+Eg=
   dependencies:
     charenc ">= 0.0.1"
     crypt ">= 0.0.1"
