@@ -6,7 +6,7 @@ import startExpress from "express-blueforest"
 const errorMapper = err => {
     if (err.code === 11000) {
         err.status = 400
-        err.body = {errorCode: 1, message: "allready exists"}
+        err.body = {errorCode: 1, message: "L'élément existe déjà"}
     }
 }
 

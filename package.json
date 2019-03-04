@@ -33,7 +33,7 @@
   "dependencies": {
     "cross-env": "5.2.0",
     "debug": "3.1.0",
-    "express-blueforest": "1.0.20",
+    "express-blueforest": "1.1.0",
     "express-validator": "5.3.0",
     "items-service": "1.0.13",
     "jsonwebtoken": "8.3.0",
