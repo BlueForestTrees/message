@@ -1312,10 +1312,10 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express-blueforest@1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/express-blueforest/-/express-blueforest-1.1.8.tgz#c4add367ab86234b0e5689acb8b77cb5d69827bf"
-  integrity sha512-ej42RZNk0vXZw7VL6eLIp9+9quiQLcnLLkXWc4U6zqm+XcxhI38Rc7RlvJGf/I/98x8u7V9jI2PICRuEvqIkKQ==
+express-blueforest@1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/express-blueforest/-/express-blueforest-1.1.11.tgz#3e1a51d50b66423b75fa3d022953e866bc5845e0"
+  integrity sha512-Q1Bp7BNDesud/kAqPQYNWpnyA8rxo+RdFyqw22rOZJ1Ix6bUrHFGX+oh/BBTPFcwzNN0IsJFTln9qK2fpa7plg==
   dependencies:
     body-parser "1.18.3"
     express "4.16.4"
